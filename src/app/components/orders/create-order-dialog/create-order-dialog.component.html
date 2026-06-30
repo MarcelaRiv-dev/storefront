@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>
+  <mat-icon style="vertical-align: middle; margin-right: 8px;">add_shopping_cart</mat-icon>
+  Create New Order
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>User ID</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput formControlName="userId" type="number" placeholder="e.g., 1">
+        <mat-error *ngIf="form.get('userId')?.hasError('required')">User ID is required</mat-error>
+        <mat-error *ngIf="form.get('userId')?.hasError('pattern')">Must be a number</mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Shipping Address</mat-label>
+      <mat-icon matPrefix>local_shipping</mat-icon>
+      <textarea matInput formControlName="shippingAddress" rows="2" placeholder="Full shipping address..."></textarea>
+      <mat-error *ngIf="form.get('shippingAddress')?.hasError('required')">Shipping address is required</mat-error>
+    </mat-form-field>
+
+    <mat-divider style="margin: 8px 0 16px;"></mat-divider>
+
+    <div class="items-header">
+      <h3>Order Items</h3>
+      <button mat-stroked-button color="primary" type="button" (click)="addItem()">
+        <mat-icon>add</mat-icon>
+        Add Item
+      </button>
+    </div>
+
+    <div formArrayName="items">
+      <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-row">
+        <span class="item-number">{{ i + 1 }}</span>
+
+        <mat-form-field appearance="outline" class="product-field">
+          <mat-label>Product ID</mat-label>
+          <input matInput formControlName="productId" type="number" placeholder="ID">
+          <mat-error *ngIf="item.get('productId')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="qty-field">
+          <mat-label>Qty</mat-label>
+          <input matInput formControlName="quantity" type="number" min="1">
+          <mat-error *ngIf="item.get('quantity')?.hasError('min')">Min 1</mat-error>
+        </mat-form-field>
+
+        <div class="item-subtotal" *ngIf="item.get('productId')?.value">
+          <span class="product-name-hint">{{ getProductName(item.get('productId')?.value) }}</span>
+          <span class="subtotal-amount">
+            \${{ (getProductPrice(item.get('productId')?.value) * (item.get('quantity')?.value || 0)) | number:'1.2-2' }}
+          </span>
+        </div>
+
+        <button mat-icon-button color="warn" type="button" (click)="removeItem(i)" [disabled]="items.length === 1" matTooltip="Remove item">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider style="margin: 12px 0 8px;"></mat-divider>
+    <div class="total-row">
+      <span>Estimated Total:</span>
+      <strong class="total-amount">\${{ getRunningTotal() | number:'1.2-2' }}</strong>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
+    <mat-icon>check</mat-icon>
+    Place Order
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+  <a class="toolbar-title" routerLink="/">
+    <mat-icon style="vertical-align: middle; margin-right: 6px;">store</mat-icon>
+    SpecSync Storefront
+  </a>
+
+  <nav class="nav-links">
+    <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      Home
+    </a>
+    <a class="nav-link" routerLink="/products" routerLinkActive="active">
+      Products
+    </a>
+    <a class="nav-link" routerLink="/orders" routerLinkActive="active">
+      Orders
+    </a>
+    <a class="nav-link" routerLink="/users" routerLinkActive="active">
+      Users
+    </a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="userService.isLoggedIn(); else loginBtn">
+    <span class="user-info">
+      <mat-icon style="vertical-align: middle; font-size: 18px;">person</mat-icon>
+      {{ userService.getCurrentUser()?.username }}
+    </span>
+    <button mat-button (click)="logout()" class="logout-btn">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </ng-container>
+
+  <ng-template #loginBtn>
+    <a mat-button routerLink="/login" class="login-btn">
+      <mat-icon>login</mat-icon>
+      Login
+    </a>
+  </ng-template>
+</mat-toolbar>

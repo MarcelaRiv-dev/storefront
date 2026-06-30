@@ -1,0 +1,17 @@
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+  min-width: 420px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.checkbox-row {
+  margin: 4px 0;
+}

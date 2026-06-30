@@ -1,0 +1,33 @@
+.orders-table {
+  width: 100%;
+}
+
+.order-id {
+  font-family: monospace;
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.order-row:hover {
+  background-color: #f9f9f9;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.status-btn {
+  font-size: 0.7rem;
+  padding: 0 8px;
+  height: 28px;
+  line-height: 28px;
+  min-width: unset;
+}
+
+.results-info {
+  font-size: 0.85rem;
+  color: #888;
+}

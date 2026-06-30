@@ -1,0 +1,30 @@
+.users-table {
+  width: 100%;
+}
+
+.user-id {
+  font-family: monospace;
+  color: #888;
+}
+
+.user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar-icon {
+  color: #bbb;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.user-row:hover {
+  background-color: #f9f9f9;
+}
+
+.results-info {
+  font-size: 0.85rem;
+  color: #888;
+}

@@ -1,0 +1,63 @@
+<div class="page-container">
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <mat-icon class="hero-icon">store</mat-icon>
+        Welcome to SpecSync Storefront
+      </h1>
+      <p class="hero-subtitle">
+        A comprehensive demo application showcasing microservices integration for users, products, and orders.
+      </p>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <h2 class="section-title">Explore Features</h2>
+    <div class="card-grid">
+      <mat-card class="feature-card" *ngFor="let feature of features">
+        <mat-card-header>
+          <div class="feature-icon-wrapper" [style.background-color]="feature.color">
+            <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+          </div>
+          <mat-card-title>{{ feature.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="feature.link">
+            <mat-icon>arrow_forward</mat-icon>
+            Go to {{ feature.title }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="services-section">
+    <h2 class="section-title">Backend Services</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <mat-icon color="primary">dns</mat-icon>
+        <div>
+          <strong>User Service</strong>
+          <span>http://localhost:8081</span>
+        </div>
+      </div>
+      <div class="service-item">
+        <mat-icon color="accent">dns</mat-icon>
+        <div>
+          <strong>Product Service</strong>
+          <span>http://localhost:8082</span>
+        </div>
+      </div>
+      <div class="service-item">
+        <mat-icon color="warn">dns</mat-icon>
+        <div>
+          <strong>Order Service</strong>
+          <span>http://localhost:8083</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

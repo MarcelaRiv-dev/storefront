@@ -1,0 +1,125 @@
+<div class="page-container">
+  <div class="back-header">
+    <button mat-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Products
+    </button>
+  </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="!loading && product">
+    <div class="page-header">
+      <h1>{{ product.name }}</h1>
+      <div class="header-actions">
+        <button mat-stroked-button (click)="toggleEdit()" *ngIf="!editMode">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-stroked-button (click)="toggleEdit()" *ngIf="editMode" color="warn">
+          <mat-icon>cancel</mat-icon>
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <mat-card *ngIf="!editMode">
+      <mat-card-content>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <label>Name</label>
+            <span>{{ product.name }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Category</label>
+            <span class="category-badge">{{ product.category }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Price</label>
+            <span class="price-tag">\${{ product.price | number:'1.2-2' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Stock Quantity</label>
+            <span>{{ product.stockQuantity }}</span>
+          </div>
+          <div class="detail-item full-width-item">
+            <label>Description</label>
+            <span>{{ product.description || '—' }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Status</label>
+            <span [class]="product.active ? 'active-badge' : 'inactive-badge'">
+              {{ product.active ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+          <div class="detail-item" *ngIf="product.imageUrl">
+            <label>Image URL</label>
+            <a [href]="product.imageUrl" target="_blank">{{ product.imageUrl }}</a>
+          </div>
+          <div class="detail-item">
+            <label>Product ID</label>
+            <span class="mono">{{ product.id }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="editMode">
+      <mat-card-header>
+        <mat-card-title>Edit Product</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="saveChanges()" class="edit-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3"></textarea>
+          </mat-form-field>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Price</mat-label>
+              <span matPrefix>$ &nbsp;</span>
+              <input matInput type="number" formControlName="price" min="0" step="0.01">
+              <mat-error *ngIf="form.get('price')?.hasError('required')">Price is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Stock Quantity</mat-label>
+              <input matInput type="number" formControlName="stockQuantity" min="0">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Category</mat-label>
+            <input matInput formControlName="category">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Image URL</mat-label>
+            <input matInput formControlName="imageUrl">
+          </mat-form-field>
+
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="active">Active</mat-checkbox>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="toggleEdit()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]="form.invalid || saving">
+          <mat-icon *ngIf="!saving">save</mat-icon>
+          <mat-spinner *ngIf="saving" diameter="18" style="display:inline-block; margin-right:4px;"></mat-spinner>
+          Save Changes
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

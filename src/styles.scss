@@ -1,0 +1,158 @@
+/* Global styles */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+}
+
+.page-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.toolbar-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: white;
+  margin-right: 16px;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+  }
+
+  &.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #333;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.status-pending { background: #fff3cd; color: #856404; }
+  &.status-confirmed { background: #cce5ff; color: #004085; }
+  &.status-shipped { background: #d4edda; color: #155724; }
+  &.status-delivered { background: #d1ecf1; color: #0c5460; }
+  &.status-cancelled { background: #f8d7da; color: #721c24; }
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.price-tag {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+.stock-info {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.mat-mdc-card {
+  border-radius: 8px !important;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #888;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.4;
+  }
+
+  p {
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 0 0;
+}

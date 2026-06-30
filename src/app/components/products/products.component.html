@@ -1,0 +1,88 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>
+      <mat-icon style="vertical-align: middle; margin-right: 8px;">inventory_2</mat-icon>
+      Products
+    </h1>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+      Add Product
+    </button>
+  </div>
+
+  <div class="filter-bar">
+    <mat-form-field appearance="outline" style="flex: 1; min-width: 200px;">
+      <mat-label>Search products</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [formControl]="searchControl" placeholder="Name or description...">
+      <button *ngIf="searchControl.value" matSuffix mat-icon-button (click)="searchControl.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="min-width: 180px;">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (ngModelChange)="applyFilters()">
+        <mat-option value="">All Categories</mat-option>
+        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-stroked-button (click)="clearFilters()" *ngIf="searchControl.value || selectedCategory">
+      <mat-icon>clear</mat-icon>
+      Clear
+    </button>
+  </div>
+
+  <div class="results-info" *ngIf="!loading">
+    Showing {{ filteredProducts.length }} of {{ products.length }} products
+  </div>
+
+  <div class="loading-spinner" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading && filteredProducts.length === 0" class="empty-state">
+    <mat-icon>inventory</mat-icon>
+    <p>No products found</p>
+  </div>
+
+  <div class="card-grid" *ngIf="!loading && filteredProducts.length > 0">
+    <mat-card class="product-card" *ngFor="let product of filteredProducts">
+      <mat-card-header>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="category-badge">{{ product.category }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p class="product-description">{{ product.description }}</p>
+        <div class="product-meta">
+          <span class="price-tag">\${{ product.price | number:'1.2-2' }}</span>
+          <span class="stock-info">
+            <mat-icon style="font-size: 14px; vertical-align: middle;">inventory</mat-icon>
+            {{ product.stockQuantity }} in stock
+          </span>
+        </div>
+        <div class="status-row">
+          <span [class]="product.active ? 'active-badge' : 'inactive-badge'">
+            {{ product.active ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-icon-button color="primary" [routerLink]="['/products', product.id]" matTooltip="View details">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="openEditDialog(product)" matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteProduct(product)" matTooltip="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
